@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Commerce</title>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://portal.bitterntec.com/favicon.ico" id="favicon" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark  " style="background-color: #eeeee4; width: 100%;" >
+       <h1><a class="navbar-brand" href="/" style="text-transform: uppercase; font-weight: bold;"><img src="https://odesk-prod-portraits.s3.amazonaws.com/Companies:3032711:CompanyLogoURL?AWSAccessKeyId=AKIAIKIUKM3HBSWUGCNQ&Expires=2147483647&Signature=bGa8sXNYnDgNBmOnSoCvYzV%2Bv7E%3D" height="80x"></a></h1> 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/products" style="text-transform: uppercase; font-weight: bold; color: black;">HOME <span class="sr-only">(current)</span></a>
+                </li>
+                <% if current_user.present? && current_user.cart.present? %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/wishlists" style="text-transform: uppercase; font-weight: bold;color: black;">WISHLIST</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/carts" style="text-transform: uppercase; font-weight: bold; color: black;">CART</a>
+                </li>
+                <% end %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Category" style="text-transform: uppercase; font-weight: bold; color: black;">CATEGORY</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/contacts" style="text-transform: uppercase; font-weight: bold; color: black;">CONTACT US</a>
+                </li>
+            </ul>
+              <% if current_user.present? %>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search">
+              <button class="btn btn-info" type="submit" >Search</button>
+            </form>
+            <% end%>
+        </div>
+        <div id="user_nav" style="margin-left:5%",>
+          <% if user_signed_in? %>
+           <!-- Copyright Signed in as <%#= current_user.email %>. Not you?-->
+           <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: "btn btn-danger" %>
+          <% else %>
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success"%> or <%= link_to "Log in", new_user_session_path, class: "btn btn-success" %>
+        <% end %>
+      </div>
+
+    </nav>
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+
+      <% end %><br>
+      
+    <%= yield %>
+     <!-- Footer -->
+<footer class="page-footer font-small blue " style="background-color: #eeeee4">
+  <hr>
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase">Our Services</h5>
+        <p>Our team is doing very well and our motive to setisfy our customer with our product and we will deliver our product with in time solted to you ans our services are going to ber very well and we request you to give feedback to our servise and compliment and if their any issue and you con contect us and tell us and feel free to contact us in any time and one of our team member will contact you adn if ny suggesction to you for our team and you also free to contect us and you can tell uus about your suggetion </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase">Connect With us </h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.facebook.com/">Facebook</a>
+          </li>
+          <li>
+            <a href="https://twitter.com/">Twitter</a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/">Instagram</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/">Linkedin</a>
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase">Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!">About Us</a>
+          </li>
+          <li>
+            <a href="/carts">Cart</a>
+          </li>
+          <li>
+            <a href="/products">Procucts</a>
+          </li>
+          <li>
+            <a href="/contacts">Contect Us</a>
+          </li>
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="/products"> Sourabhkumar.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+  </body>
+</html>
+<style type="text/css">
+  h3.h3{text-align:center;margin:1em;text-transform:capitalize;font-size:1.7em;}
+
+/********************* shopping Demo-1 **********************/
+.product-grid{font-family:Raleway,sans-serif;text-align:center;padding:0 0 72px;border:1px solid rgba(0,0,0,.1);overflow:hidden;position:relative;z-index:1}
+.product-grid .product-image{position:relative;transition:all .3s ease 0s}
+.product-grid .product-image a{display:block}
+/*.product-grid .product-image img{width:100%;height:auto}*/
+.product-grid .product-image img{height:200px;}
+.product-grid .pic-1{opacity:1;transition:all .3s ease-out 0s}
+/*.product-grid:hover .pic-1{opacity:1}*/
+.product-grid .pic-2{opacity:0;position:absolute;top:0;left:0;transition:all .3s ease-out 0s}
+/*.product-grid:hover .pic-2{opacity:1}*/
+.product-grid .social{width:150px;padding:0;margin:0;list-style:none;opacity:0;transform:translateY(-50%) translateX(-50%);position:absolute;top:60%;left:50%;z-index:1;transition:all .3s ease 0s}
+.product-grid:hover .social{opacity:1;top:50%}
+.product-grid .social li{display:inline-block}
+.product-grid .social li a{color:#fff;background-color:#333;font-size:16px;line-height:40px;text-align:center;height:40px;width:40px;margin:0 2px;display:block;position:relative;transition:all .3s ease-in-out}
+.product-grid .social li a:hover{color:#fff;background-color:#ef5777}
+.product-grid .social li a:after,.product-grid .social li a:before{content:attr(data-tip);color:#fff;background-color:#000;font-size:12px;letter-spacing:1px;line-height:20px;padding:1px 5px;white-space:nowrap;opacity:0;transform:translateX(-50%);position:absolute;left:50%;top:-30px}
+.product-grid .social li a:after{content:'';height:15px;width:15px;border-radius:0;transform:translateX(-50%) rotate(45deg);top:-20px;z-index:-1}
+.product-grid .social li a:hover:after,.product-grid .social li a:hover:before{opacity:1}
+.product-grid .product-discount-label,.product-grid .product-new-label{color:#fff;background-color:#ef5777;font-size:12px;text-transform:uppercase;padding:2px 7px;display:block;position:absolute;top:10px;left:0}
+.product-grid .product-discount-label{background-color:#333;left:auto;right:0}
+.product-grid .rating{color:#FFD200;font-size:12px;padding:12px 0 0;margin:0;list-style:none;position:relative;z-index:-1}
+.product-grid .rating li.disable{color:rgba(0,0,0,.2)}
+.product-grid .product-content{background-color:#fff;text-align:center;padding:12px 0;margin:0 auto;position:absolute;left:0;right:0;bottom:-27px;z-index:1;transition:all .3s}
+.product-grid:hover .product-content{bottom:0}
+.product-grid .title{font-size:13px;font-weight:400;letter-spacing:.5px;text-transform:capitalize;margin:0 0 10px;transition:all .3s ease 0s}
+.product-grid .title a{color:#828282}
+.product-grid .title a:hover,.product-grid:hover .title a{color:#ef5777}
+.product-grid .price{color:#333;font-size:17px;font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.6px;margin-bottom:8px;text-align:center;transition:all .3s}
+.product-grid .price span{color:#999;font-size:13px;font-weight:400;text-decoration:line-through;margin-left:3px;display:inline-block}
+.product-grid .add-to-cart{color:#000;font-size:13px;font-weight:600}
+@media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
+}
+</style>

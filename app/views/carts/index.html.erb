@@ -1,0 +1,51 @@
+
+<div class="container">
+  <h3 class="h3">Cart Items</h3>
+  <h2 lass="h3">Total Cart Amount: <%= current_user.cart.total %></h2>
+  <button>shop now</button>
+  <div class="row">
+  	<% @cart_items.each do |product| %>
+	    <div class="col-md-3 col-sm-6">
+	      <div class="product-grid">
+	        <div class="product-image">
+	          <a href="#">
+	           <h3 class="image"><a href="/products/<%= product.item.id %>"><%= image_tag product.item.image_url %></a></h3>
+	          </a>
+	          <ul class="social">
+	            <li><a href=" /products/<%= product.item.id %>" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
+	            <li>
+		            <% if Wishlist.where(user_id: current_user.id, product_id: product.item.id).present? %>
+	            		<a href="/remove_to_wishlist/<%= product.item.id %>" data-tip="Remove to Wishlist"><i class="fa fa-shopping-bag"></i></a>
+	            	<% else %>
+	            		<a href="/add_to_wishlist/<%= product.item.id %>" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a>
+	            	<% end %>	
+            	</li>
+	            <li><a href="/remove_to_cart/<%= product.item.id %>" data-tip="Remove to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+	          </ul>
+	           <span class="product-new-label" style="background-color: indianred;">Sale</span>
+	          <span class="product-discount-label" style="background-color: seagreen;"><%= product.item.discount %>%</span>
+	        </div>
+	       <!--  <ul class="rating">
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star disable"></li>
+	        </ul> -->
+	        <div class="product-content">
+	          <h3 class="title"><a href="#"><%= product.item.name %></a></h3>
+	          <div class="price">
+	          	<%= product.item.price %>	         
+	          	 	<%= product.item.price %>
+	            <!-- <span>$20.00</span> -->
+	          </div>
+	          <a class="add-to-cart" href="#">Quantity: <%= product.quantity %></a>
+	          <a class="add-to-cart" href="#">Total Price: <%= product.subtotal %></a>
+	        </div>
+	      </div><br/>
+	    </div>
+	  <% end %>  
+  </div>
+</div>
+<hr>
+
