@@ -1,7 +1,14 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!
   def index
+   
     @products = Product.all
+  end
+  def search
+    
+    @products = Product.where(["LOWER(name) LIKE ?","%#{params[:search].downcase}%"])
+
+    
   end
 
   def add_to_cart

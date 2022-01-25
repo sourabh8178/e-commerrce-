@@ -1,0 +1,56 @@
+<!-- <h1 style="text-align: center; text-decoration: none; cursor: pointer;">Home Page</h1><br> -->
+
+<div class="container">
+  <div class="row">
+  	<% @products.each do |product| %>
+	    <div class="col-md-3 col-sm-6">
+	      <div class="product-grid">
+	        <div class="product-image">
+	          <a href="#">
+	           <h3 class="image"><a href="/products/<%= product.id %>"><%= image_tag product.image_url %></a></h3>
+	          </a>
+	          
+	          <ul class="social">
+	            <li><a href="/products/<%= product.id %>" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+	            <li>
+	            	<% if current_user.present? %>
+		            	<% if Wishlist.where(user_id: current_user.id, product_id: product.id).present? %>
+		            		<a href="/remove_to_wishlist/<%= product.id %>" data-tip="Remove to Wishlist">
+		            			<i class="fas fa-heart-broken"></i></a>
+		            	<% else %>
+		            		<a href="/add_to_wishlist/<%= product.id %>" data-tip="Add to Wishlist"><i class="fa fa-heart"></i></a>
+		            	<% end %>
+		            <% end %>		
+	            </li>
+	            <li>
+	            	<% if current_user.present? %>
+	            		<a href="/add_to_cart/<%= product.id %>" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a>
+	            	<% end %>	
+	            </li>
+	          </ul>
+	          <span class="product-new-label" style="background-color: indianred;">Sale</span>
+	          <span class="product-discount-label" style="background-color: seagreen;"><%= product.discount %>%</span>
+	        </div>
+	       
+	        <div class="product-content">
+	        	 <ul class="rating">
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star"></li>
+	          <li class="fa fa-star disable"></li>
+	        </ul>
+	          <h3 class="title"><a href="/products/<%= product.id %>"><%= product.name %></a></h3>
+	          <div class="price">
+	          	<i class= "fa fa-rupee"></i><%= product.calculate_discount(product) %>
+	            <span> <i class= "fa fa-rupee"></i><%= product.price %></span>
+	          </div>
+	          <!-- <a class="add-to-cart" href="/add_to_cart/<%#= product.id %>">+ Add To Cart</a> -->
+	        </div>
+	      </div><br/>
+	    </div>
+	  <% end %>  
+  </div>
+</div>
+
+

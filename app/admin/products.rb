@@ -20,7 +20,7 @@ ActiveAdmin.register Product do
       f.input :name
       f.input :discription
       f.input :price
-      f.input :discount
+      f.input :discount,label: 'Require  discount'
       f.input "image" do |pro|
       image_tag(pro.image_url, height:"50", width: "50") rescue nil
     end

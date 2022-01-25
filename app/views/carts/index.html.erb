@@ -2,13 +2,12 @@
 <div class="container">
   <h3 class="h3">Cart Items</h3>
   <h2 lass="h3">Total Cart Amount: <%= current_user.cart.total %></h2>
-  <button>shop now</button>
   <div class="row">
   	<% @cart_items.each do |product| %>
 	    <div class="col-md-3 col-sm-6">
 	      <div class="product-grid">
 	        <div class="product-image">
-	          <a href="#">
+	          <a href="#	">
 	           <h3 class="image"><a href="/products/<%= product.item.id %>"><%= image_tag product.item.image_url %></a></h3>
 	          </a>
 	          <ul class="social">
@@ -35,17 +34,18 @@
 	        <div class="product-content">
 	          <h3 class="title"><a href="#"><%= product.item.name %></a></h3>
 	          <div class="price">
-	          	<%= product.item.price %>	         
+	          	
 	          	 	<%= product.item.price %>
 	            <!-- <span>$20.00</span> -->
 	          </div>
-	          <a class="add-to-cart" href="#">Quantity: <%= product.quantity %></a>
-	          <a class="add-to-cart" href="#">Total Price: <%= product.subtotal %></a>
+	          <p class="add-to-cart" >Quantity: <%= product.quantity %>
+	         Total Price: <%= product.subtotal %></p>
 	        </div>
 	      </div><br/>
 	    </div>
-	  <% end %>  
-  </div>
+	  <% end %> 
+
+  </div><button class="btn btn-info"><a href="/shops">Shop now</a></button> 
 </div>
 <hr>
 

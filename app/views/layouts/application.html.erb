@@ -3,18 +3,30 @@
   <head>
     <title>Commerce</title>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="http://portal.bitterntec.com/favicon.ico" id="favicon" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaxILGO57ATpJlRhFgvgi2PtVQwytz2t54Ew&usqp=CAU" id="favicon" />
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark  " style="background-color: #eeeee4; width: 100%;" >
-       <h1><a class="navbar-brand" href="/" style="text-transform: uppercase; font-weight: bold;"><img src="https://odesk-prod-portraits.s3.amazonaws.com/Companies:3032711:CompanyLogoURL?AWSAccessKeyId=AKIAIKIUKM3HBSWUGCNQ&Expires=2147483647&Signature=bGa8sXNYnDgNBmOnSoCvYzV%2Bv7E%3D" height="80x"></a></h1> 
+    <nav class="navbar navbar-expand-md navbar-dark  " style="background-color: #f7bf50; width: 100%; height: 120px;" >
+       <h1><a class="navbar-brand" href="/"><%= image_tag("logos/product.png",height: '200px')%>  </a></h1> 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,11 +34,14 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="/products" style="text-transform: uppercase; font-weight: bold; color: black;">HOME <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="/homes" style="text-transform: uppercase; font-weight: bold; color: black;">HOME <span class="sr-only">(current)</span></a>
                 </li>
                 <% if current_user.present? && current_user.cart.present? %>
                 <li class="nav-item">
                   <a class="nav-link" href="/wishlists" style="text-transform: uppercase; font-weight: bold;color: black;">WISHLIST</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/products" style="text-transform: uppercase; font-weight: bold;color: black;">products</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/carts" style="text-transform: uppercase; font-weight: bold; color: black;">CART</a>
@@ -39,12 +54,15 @@
                   <a class="nav-link" href="/contacts" style="text-transform: uppercase; font-weight: bold; color: black;">CONTACT US</a>
                 </li>
             </ul>
-              <% if current_user.present? %>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search">
+             
+           <!--  <form class="form-inline my-2 my-lg-0" action="/Search">
+              <input class="form-control mr-sm-2" placeholder="Search" name = form[name] >
               <button class="btn btn-info" type="submit" >Search</button>
-            </form>
-            <% end%>
+            </form> -->
+            <%= form_tag(search_path, :method => "get", id: "search-form", class: "form-inline my-2 my-lg-0") do %>
+                  <%= text_field_tag :search, params[:search], placeholder: "Search " %>&nbsp
+                  <%= submit_tag "Search", class: "btn btn-info", :name => nil %>
+            <% end %>
         </div>
         <div id="user_nav" style="margin-left:5%",>
           <% if user_signed_in? %>
@@ -65,90 +83,55 @@
       <% end %><br>
       
     <%= yield %>
-     <!-- Footer -->
-<footer class="page-footer font-small blue " style="background-color: #eeeee4">
-  <hr>
-
-  <!-- Footer Links -->
-  <div class="container-fluid text-center text-md-left">
-
-    <!-- Grid row -->
-    <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <!-- Content -->
-        <h5 class="text-uppercase">Our Services</h5>
-        <p>Our team is doing very well and our motive to setisfy our customer with our product and we will deliver our product with in time solted to you ans our services are going to ber very well and we request you to give feedback to our servise and compliment and if their any issue and you con contect us and tell us and feel free to contact us in any time and one of our team member will contact you adn if ny suggesction to you for our team and you also free to contect us and you can tell uus about your suggetion </p>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Connect With us </h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="https://www.facebook.com/">Facebook</a>
-          </li>
-          <li>
-            <a href="https://twitter.com/">Twitter</a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/">Instagram</a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/">Linkedin</a>
-          </li>
-        </ul>
-      </div>
+    
 
 
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">About Us</a>
-          </li>
-          <li>
-            <a href="/carts">Cart</a>
-          </li>
-          <li>
-            <a href="/products">Procucts</a>
-          </li>
-          <li>
-            <a href="/contacts">Contect Us</a>
-          </li>
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
-    </div>
-    <!-- Grid row -->
-
-  </div>
-  <!-- Footer Links -->
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="/products"> Sourabhkumar.com</a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
+<footer class="footer bg-dark">
+        <div class="container">
+            <div class="row">
+               
+                <div class="col-lg-6 text-center text-lg-left my-auto  wow zoomIn">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item">
+                            <a href="#">About</a>
+                        </li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item">
+                            <a href="/contacts">Contact</a>
+                        </li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item">
+                            <a href="#">Terms of Use</a>
+                        </li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item">
+                            <a href="#">Privacy Policy</a>
+                        </li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">© sourabh 2022. All Rights Reserved.</p>
+                </div>
+                <div class="col-lg-6 text-center text-lg-right my-auto  wow zoomIn">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item mr-3">
+                            <a href=" https://www.facebook.com/">
+                                <i class="fa fa-facebook fa-2x fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item mr-3">
+                            <a href=" https://twitter.com/">
+                                <i class="fa fa-twitter fa-2x fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.instagram.com/">
+                                <i class="fa fa-instagram fa-2x fa-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 <!-- Footer -->
 
   </body>
@@ -189,3 +172,682 @@
 @media only screen and (max-width:990px){.product-grid{margin-bottom:30px}
 }
 </style>
+
+<script>
+    $(document).ready(function(){
+      $(".fancybox").fancybox({
+            openEffect: "none",
+            closeEffect: "none"
+        });
+    });
+</script>
+    </body>
+
+    <style type="text/css">
+        
+        body {
+    font-family: 'Open Sans', sans-serif !important;
+    background: #fff;
+    color: #222;
+}
+
+.navbar-shrink{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+header.masthead {
+    position: relative;
+    height: 100vh;
+    background-color: #343a40;
+    background: url('https://media.istockphoto.com/photos/red-shoppings-bag-from-recycle-paper-isolated-on-white-background-picture-id869978500?k=20&m=869978500&s=612x612&w=0&h=LYgyQh42JRevPo_3_rmnUvlva8pVm-KEdit_7s4z944=') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+
+header.masthead .overlay{position:absolute;background-color:#212529;height:100%;width:100%;top:0;left:0;opacity:.3}
+
+@media (min-width:768px) {
+    header.masthead {
+        padding-top: 12rem;
+        padding-bottom: 12rem;
+    }
+    header.masthead h3 {
+        font-size: 4rem;
+    }
+}
+
+.testimonials{
+    padding-top:5rem;
+    padding-bottom:5rem;
+    
+}
+
+.myform-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+button.btn.btn-light {
+    position: absolute;
+    background: transparent;
+    border: none;
+    height: 38px;
+    right: 23px;
+}
+
+a.btn.btn-default.btn-scroll {
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 100%;
+}
+
+
+
+.big-img img {
+    height: 325px;
+    width:100%;
+    object-fit: cover;
+}
+
+.inner-section{
+ position:relative;   
+}
+.container.slider-top-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-login {
+    width: 138px;
+    background: #1fc6d8 !important;
+    border: 1px solid #1fc6d8 !important;
+}
+.btn-login:hover{
+       background: #3683a1 !important;
+    border: 1px solid #1fc6d8 !important;
+}
+.mfa-white {
+    color: #fff !important;
+}
+
+h3.my-heading {
+    font-family: 'Kaushan Script', cursive;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    margin:0;
+}
+
+p.myp-slider.text-center {
+    color: #fff;
+}
+
+.btn-register {
+    width: 138px;
+    background: #1fc6d8 !important;
+    border: 1px solid #1fc6d8 !important;
+}
+
+
+.btn-register:hover{
+       background: #3683a1 !important;
+    border: 1px solid #1fc6d8 !important;
+}
+
+.btn-join {
+    background: #1fc6d8 !important;
+    border: 1px solid #1fc6d8 !important;
+}
+
+section#about {
+    width: 100%;
+    padding-top: 2.1rem;
+    padding-bottom: 2.1rem;
+}
+
+.btn-circle {
+    border-radius: 50%;
+}
+
+.my-social-btn {
+    background: lightgrey;
+}
+
+.card:hover .my-social-btn.fb {
+    background: #205b9f;
+}
+.card:hover .my-social-btn.twitter {
+    background: #00ace3;
+}
+.card:hover .my-social-btn.google {
+    background: #ff3921;
+}
+/*
+a.btn.btn-circle.my-social-btn.fb:hover {
+    background: #205b9f;
+}
+
+a.btn.btn-circle.my-social-btn.twitter:hover {
+    background: #00ace3;
+}
+
+a.btn.btn-circle.my-social-btn.google:hover {
+    background: #ff3921;
+}
+*/
+a.btn.btn-circle.my-social-btn {
+    color: #fff;
+    height: 40px;
+    width: 40px;
+}
+
+.inner-section h3 {
+    text-transform: uppercase;
+    font-weight:bold;
+}
+
+.inner-section h3:after {
+    content: '';
+    position: absolute;
+    border-bottom: 4px solid #008ba3;
+    width: 100%;
+    max-width: 10%;
+    top: 37px;
+    left: 0;
+}
+span.bg-main {
+    color: #008ba3;
+}
+
+hr.my-border {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 2px solid #008ba3;
+    width: 117px;
+}
+
+.linear-grid img {
+    width: 100%;
+    height: 124px;
+    object-fit: cover;
+}
+
+.mybg-events {
+    background: url('https://www.factor-a.com/wp-content/uploads//2019/09/Product-Launch-Amazon-Sponosored-Ads.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.h-262 {
+    height: 262px !important;
+}
+
+h3.title-heading.text-center {
+    color: #fff;
+    font-weight: bold;
+}
+
+p.myp.text-center {
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 3rem;
+}
+
+.big-img2 img {
+    height: 472px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.my-grid img {
+    height: 228px;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+
+
+
+
+.text-block {
+    min-height: 228px;
+    height: auto;
+    background: #fff;
+    padding: 15px;
+}
+
+h5.events-heading {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+p.myp-font {
+    font-size: 15px;
+}
+
+section#group {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.card {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 0;
+    border: none !important;
+    border-radius: .28571429rem;
+}
+
+.card:hover {
+    color: #222 !important;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+}
+
+.card-block {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    border: none !important;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+}
+
+.card-img-top {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.card-title {
+    font-size: 1.28571429em;
+    font-weight: 700;
+    line-height: 1.2857em;
+}
+
+.card-text {
+    clear: both;
+    margin-top: .5em;
+    color: rgba(0, 0, 0, .68);
+}
+
+.card-footer {
+  bottom: 0px;
+    font-size: 1em;
+    position: static;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    padding: .75em 1em;
+    color: rgba(0, 0, 0, .4);
+    border-top: 1px solid rgba(0, 0, 0, .05) !important;
+    background: #fff;
+}
+
+.card-inverse .btn {
+    border: 1px solid rgba(0, 0, 0, .05);
+}
+
+.mybg-music {
+    background: url('https://assets-global.website-files.com/5c7fdbdd4e3feeee8dd96dd2/60c3dab4298f44999078d314_faf3c844-fa06-4aaa-9c3b-b2ab5113e2cf.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+section#marketplace {
+    background: #f7f7f7;
+    height: 100%;
+    width: 100%;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+section#marketplace .card {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+}
+
+section#artist {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+a.link-color {
+    color: #008ba3;
+    font-weight: bold;
+}
+
+.my-right-text {
+    padding-top: 3rem;
+}
+
+
+/***music gallery***/
+
+.gal-item {
+overflow: hidden;
+}
+.gal-item .box {
+
+overflow: hidden;
+}
+.box img {
+height: 160px;
+width: 100%;
+object-fit: cover;
+-o-object-fit: cover;
+}
+/****/
+.item {
+position: relative;
+}
+.item img {
+max-width: 100%;
+-moz-transition: all 0.3s;
+-webkit-transition: all 0.3s;
+transition: all 0.3s;
+}
+.item:hover img {
+-moz-transform: scale(1.4);
+-webkit-transform: scale(1.4);
+transform: scale(1.4);
+}
+
+
+
+/*sidebar navigation*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    font-size: 36px;
+    margin-right: 15px;
+}
+#main {display: none;}
+#main {
+    float: right;
+    transition: margin-right .5s;
+    
+}
+a.openNav {
+    font-size: 26px;
+    color: #ffffff;
+    text-decoration: none;
+}
+.sidenav .nav-link {
+    font-size: 13px;
+    font-weight: bold;
+}
+.mob-ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.sidenav li{
+    padding: 0 3px !important;
+    position: relative;
+}
+.sidenav li a {
+    padding: 10px 15px;
+    text-transform: uppercase;
+}
+.sidenav ul li:hover .nav-link {
+    color: #008ba3;
+}
+
+li.nav-item a:hover {
+    background: #008ba3;
+    color: #ffffff !important;
+}
+
+
+
+.floating-arrow {
+    -webkit-animation: floating-arrow 1.6s infinite ease-in-out 0s;
+    -o-animation: floating-arrow 1.6s infinite ease-in-out 0s;
+    animation: floating-arrow 1.6s infinite ease-in-out 0s;
+}
+
+@keyframes floating-arrow {
+    from {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    65% {
+        -webkit-transform: translateY(11px);
+        transform: translateY(11px);
+    }
+    to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+footer.footer{padding-top:4rem;padding-bottom:4rem}
+
+li.list-inline-item a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/*-------------------responsive-----------------*/
+
+@media screen and (max-width: 520px) {
+    ::placeholder {
+        font-size: 10px;
+    }
+    .scroll-down {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 45px;
+    }
+    
+    .text-block {
+        padding: 15px;
+    }
+    .linear-grid img {
+        width: 100%;
+        height: 181px;
+    }
+    .my-grid img {
+        width: 100%;
+    }
+   
+   
+}
+@media screen and (max-width: 767px) {
+    .btn-login{
+       width:100%; 
+    }
+    .btn-register {
+         width:100%; 
+    }
+}
+
+
+
+@media only screen and (min-width:2560px){}
+@media only screen and (min-width:1600px) and (max-width:1920px){
+    .navbar-toggler {display: none !important;}
+}
+@media only screen and (min-width:1440px){
+    .navbar-toggler {display: none !important;}
+}
+@media only screen and (max-width: 1280px){
+    .navbar-toggler {display: none !important;}
+}
+@media only screen and (max-width: 1024px){
+    .navbar-toggler {display: none !important;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    h5.events-heading{font-size:15px;}
+    p.myp-font{font-size:13px;}
+}
+@media only screen and (min-width: 960px) and (max-width: 1023px) {
+    .navbar-toggler {display: none !important;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+.navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}
+
+}
+
+@media only screen and (max-width:736px) and (orientation:landscape){
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}
+}
+@media only screen and (max-width:667px) and (orientation:landscape){
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}
+}
+@media only screen and (max-width:568px) and (orientation:landscape){
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}
+}
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+    h5.events-heading {
+    font-size: 20px;
+}
+p.myp-font {
+    font-size: 15px;
+}
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}  
+    .box img {height: 100%;}
+}
+@media only screen and (min-width: 480px) and (max-width: 599px) {
+    .inner-section h3 {
+        font-size: 18px;
+    }
+    h5.events-heading{font-size:15px;}
+    .inner-section p {
+    font-size: 13px;
+    text-align: justify;
+    }
+    section#marketplace img {
+     object-fit: cover;
+    }
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}
+    .box img {height: 100%;}
+}
+@media only screen and (min-width: 321px) and (max-width: 479px) {
+    .inner-section h3 {
+        font-size: 18px;
+    }
+    h5.events-heading{font-size:15px;}
+    .inner-section p {
+    font-size: 13px;
+    text-align: justify;
+    }
+    section#marketplace img {
+     object-fit: cover;
+    }
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}  
+    .box img {height: 100%;}
+}
+@media only screen and (max-width:568px) and (orientation:landscape){
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}
+    .box img {height: 100%;}
+}
+@media only screen and (max-width: 320px) {
+     .inner-section h3 {
+        font-size: 18px;
+    }
+    h5.events-heading{font-size:15px;}
+    .inner-section p {
+    font-size: 13px;
+    text-align: justify;
+    }
+    section#marketplace img {
+     object-fit: cover;
+    }
+    .navbar-toggler {display: none !important;}
+    #main {display: block;}
+    .header-wrap .navbar .nav-link {color: #fff;}
+    .mob-ul{list-style-type: none; padding-left: 0;}
+    .header-wrap .sub-menu {width: 250px;}
+    .box img {height: 100%;}
+}
+
+    </style>
