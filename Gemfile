@@ -62,5 +62,22 @@ gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 gem "letter_opener"#, group: :development
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem "oauth"
+gem "oauth2"
+gem 'omniauth-oauth2'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth'
+gem 'omniauth-linkedin'
+gem 'omniauth-linkedin-oauth2'
+
+gem 'omniauth-github'
+gem 'omniauth-pinterest'
+gem 'thin'
+
+
+
 # gem 'acts_as_shopping_cart', :github => 'crowdint/acts_as_shopping_cart', :branch => '0-1-x'
 

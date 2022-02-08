@@ -24,19 +24,12 @@
 	           <span class="product-new-label" style="background-color: indianred;">Sale</span>
 	          <span class="product-discount-label" style="background-color: seagreen;"><%= product.item.discount %>%</span>
 	        </div>
-	       <!--  <ul class="rating">
-	          <li class="fa fa-star"></li>
-	          <li class="fa fa-star"></li>
-	          <li class="fa fa-star"></li>
-	          <li class="fa fa-star"></li>
-	          <li class="fa fa-star disable"></li>
-	        </ul> -->
+	      
 	        <div class="product-content">
 	          <h3 class="title"><a href="#"><%= product.item.name %></a></h3>
 	          <div class="price">
 	          	
 	          	 	<%= product.item.price %>
-	            <!-- <span>$20.00</span> -->
 	          </div>
 	          <p class="add-to-cart" >Quantity: <%= product.quantity %>
 	         Total Price: <%= product.subtotal %></p>
@@ -44,8 +37,42 @@
 	      </div><br/>
 	    </div>
 	  <% end %> 
+	  <div class="col-md-4">
+            <div class="payment-info">
+                <div class="d-flex justify-content-between align-items-center"><span>Card details</span></div><span class="type d-block mt-3 mb-1 font-weight-bold">Card type</span>
+            <%= form_with(model: @carts, local: true) do |form| %>
+                <label class="radio"> <input type="radio" name="card" value="payment" required   checked > <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
 
-  </div><button class="btn btn-info"><a href="/shops">Shop now</a></button> 
+                <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png" /></span> </label>
+
+                <label class="radio"> <input type="radio" name="card" value="payment" > <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png" /></span> </label>
+
+                <label class="radio"> <input type="radio" name="card" value="payment" > <span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png" /></span> </label>
+
+                <div><label class="credit-card-label font-weight-bold" >Name on card</label><input type="text" class="form-control credit-inputs" placeholder="Name" name=form[name] required></div>
+
+                <div><label class="credit-card-label font-weight-bold" >Card number</label><input type="number" class="form-control credit-inputs" placeholder="xxxx xxxx xxxx xxxx"></div>
+
+                <div class="row">
+                    <div class="col-md-6 font-weight-bold"><label class="credit-card-label">Date</label><input type="text" class="form-control credit-inputs" placeholder="day/month"></div>
+                    <div class="col-md-6 font-weight-bold"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="xxx"></div>
+                </div>
+                <hr class="line">
+                <div class="d-flex justify-content-between information font-weight-bold" name=form[amount]><span>Total(Incl. taxes)</span>
+
+                    <span><%= current_user.cart.total %></span>
+                    <div class="text-center">
+              <button class="btn btn-info">Submit</button>
+            </div>
+
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  </div><!-- <button class="btn btn-info"><a href="/shops">Shop now</a></button>  -->
 </div>
 <hr>
 

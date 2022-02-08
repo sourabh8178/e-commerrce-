@@ -9,4 +9,12 @@ class CartsController < ApplicationController
     @cart_items = @cart.cart_items
   end
 
+
+  def create
+
+    @carts = Cart.create(name: params[:form][:name], email: params[:current_user.email])
+    CartshopMailer.cart_mail(@carts).deliver_now 
+    redirect_to homes_path
+  end
+
 end

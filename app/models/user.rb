@@ -4,5 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :cart
-  has_many :wishlists       
+  has_many :wishlists  
+  has_many :dolikes  
+
+  has_many :authentications, dependent: :destroy
+  validates :email, :uniqueness => {:allow_blank => true} 
 end

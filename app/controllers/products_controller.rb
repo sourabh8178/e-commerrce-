@@ -1,14 +1,10 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!
   def index
-   
     @products = Product.all
   end
-  def search
-    
+  def search 
     @products = Product.where(["LOWER(name) LIKE ?","%#{params[:search].downcase}%"])
-
-    
   end
 
   def add_to_cart
@@ -42,4 +38,21 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by(id: params[:id])
   end
+
+
+  # def showcategory
+  #   @product = Product.where(params[:name])
+  # end
+
+  def add_to_dolike
+    @product = Product.find_by(id: params[:product_id])
+    Dolike.create(user_id: current_user.id, product_id: params[:product_id])
+    redirect_to request.referrer
+  end
+
+  def remove_to_dolike
+    Dolike.where(user_id: current_user.id, product_id: params[:product_id]).destroy_all
+    redirect_to request.referrer
+  end
+
 end
