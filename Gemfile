@@ -75,9 +75,6 @@ gem 'omniauth-linkedin-oauth2'
 
 gem 'omniauth-github'
 gem 'omniauth-pinterest'
-gem 'thin'
-gem 'mini_magick'
-
 
 # gem 'acts_as_shopping_cart', :github => 'crowdint/acts_as_shopping_cart', :branch => '0-1-x'
 
