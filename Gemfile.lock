@@ -373,6 +373,7 @@ DEPENDENCIES
   jquery-ui-rails
   letter_opener
   listen
+  mini_magick
   oauth
   oauth2
   omniauth
