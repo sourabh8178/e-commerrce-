@@ -1,1 +1,0 @@
-Product.where(id:  User.first.dolikes.map(&:product_id)).order("RANDOM()").last(10)
