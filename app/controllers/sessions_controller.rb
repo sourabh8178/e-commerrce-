@@ -11,5 +11,4 @@ class SessionsController < ApplicationController
           flash[:notice] = "Authentication Failed."
       end
     end
-
 end
