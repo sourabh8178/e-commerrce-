@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   root "homes#index"
   get "products",to: "products#index"
   get  "products/:id", to: "products#show", as: "show"
@@ -6,11 +7,11 @@ Rails.application.routes.draw do
   get "/categorys", to: "categorys#index"
   resource :articles
   devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+  
   devise_for :users
-  # devise_for :users, :controllers => { :sessions => "users/sessions" }
   get "/add_to_cart/:product_id", to: "products#add_to_cart"
   get "/remove_to_cart/:product_id", to: "products#remove_to_cart"
+  get "/cart_clear", to: "products#cart_clear"
 
 
   get "/add_to_wishlist/:product_id", to: "products#add_to_wishlist"

@@ -11,7 +11,6 @@ class CartsController < ApplicationController
 
 
   def create
-
     @carts = Cart.create(name: params[:form][:name], email: params[:current_user.email])
     CartshopMailer.cart_mail(@carts).deliver_now 
     redirect_to homes_path

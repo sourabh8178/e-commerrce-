@@ -3,8 +3,13 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
   end
+
   def search 
-    @products = Product.where(["LOWER(name) LIKE ?","%#{params[:search].downcase}%"])
+    if params[:search].blank?
+      redirect_to products_path
+    else
+     @products = Product.where(["LOWER(name) LIKE ?","%#{params[:search].downcase}%"])
+    end
   end
 
   def add_to_cart
@@ -25,6 +30,12 @@ class ProductsController < ApplicationController
     redirect_to carts_path
   end
 
+  def cart_clear
+    @cart = current_user.cart
+    @cart.clear
+    redirect_to carts_path
+  end
+
   def add_to_wishlist
     @product = Product.find_by(id: params[:product_id])
     Wishlist.create(user_id: current_user.id, product_id: params[:product_id])
@@ -37,12 +48,8 @@ class ProductsController < ApplicationController
   end
   def show
     @product = Product.find_by(id: params[:id])
+    # @product = Product.friendly.find(params[:id])
   end
-
-
-  # def showcategory
-  #   @product = Product.where(params[:name])
-  # end
 
   def add_to_dolike
     @product = Product.find_by(id: params[:product_id])

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_27_111501) do
+ActiveRecord::Schema.define(version: 2022_02_21_101120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,35 @@ ActiveRecord::Schema.define(version: 2022_01_27_111501) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "product_id"
+    t.integer "order_id"
+    t.decimal "total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "cart_id"
+    t.integer "product_id"
+    t.decimal "price"
+    t.integer "status", default: 0
+    t.integer "quantity"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.decimal "phone"
+    t.string "country"
+    t.string "address"
+    t.string "town"
+    t.string "district"
+    t.integer "postal_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "subcategory_id"
@@ -113,6 +142,18 @@ ActiveRecord::Schema.define(version: 2022_01_27_111501) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "discount"
+    t.string "slug"
+    t.index ["slug"], name: "index_products_on_slug", unique: true
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "product_id"
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "subcategories", force: :cascade do |t|

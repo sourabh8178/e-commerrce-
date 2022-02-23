@@ -22,7 +22,7 @@ ActiveAdmin.register Product do
       f.input :price
       f.input :discount
       f.input "image" do |pro|
-      image_tag(pro.image_url, height:"50", width: "50") rescue nil
+      image_tag(pro.image height:"50", width: "50") rescue nil
     end
       f.input :subcategory_id, as: :select, collection: option_groups_from_collection_for_select(Category.all, :subcategory, :name, :id, :name, resource.subcategory_id)
 
