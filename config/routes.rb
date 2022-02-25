@@ -29,6 +29,12 @@ Rails.application.routes.draw do
   
   get "contacts", to: "contacts#index"
   get "shops", to: "shops#index"
+
+  post "/create-checkout-session", to: "carts#checkout"
+
+  get "/carts/success", to: "carts#success"
+  get "/carts/cancel", to: "carts#cancel"
+  get "/success", to: "carts#success_page"
   
   resource :contacts
 

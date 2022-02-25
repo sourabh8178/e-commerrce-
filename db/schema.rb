@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_21_101120) do
+ActiveRecord::Schema.define(version: 2022_02_25_121921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,50 @@ ActiveRecord::Schema.define(version: 2022_02_21_101120) do
   create_table "dolikes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "order_bookings", force: :cascade do |t|
+    t.string "customer_email"
+    t.string "customer_id"
+    t.string "customer_city"
+    t.string "customer_country"
+    t.string "customer_address_line_one"
+    t.string "customer_address_line_two"
+    t.integer "post_code"
+    t.string "customer_state"
+    t.string "payment_intent"
+    t.decimal "amount_total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "product_id"
+    t.string "phone"
+  end
+
+  create_table "order_details", force: :cascade do |t|
+    t.string "customer_email"
+    t.integer "customer_id"
+    t.string "customer_city"
+    t.string "customer_country"
+    t.string "customer_address_line_one"
+    t.string "customer_address_line_two"
+    t.integer "post_code"
+    t.string "customer_state"
+    t.integer "customer_phone"
+    t.integer "payment_intent"
+    t.integer "amount_total"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

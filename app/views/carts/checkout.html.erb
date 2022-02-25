@@ -1,0 +1,11 @@
+<script src="https://js.stripe.com/v3"></script>
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
+<script type="text/javascript">
+	<% session_id = @session.id %>
+	<% Stripe.api_key = 'sk_test_51KWwrwSJkerzRPBUxkXVy9PTD9clPnX2KrEycutGuZxdFULjpNu1W6Lev5jSpYUmCc99SumqCo3JKOUD2mYr2nvD00UY2qQ9hk' %>
+
+	jQuery(document).ready(function($) {
+    var stripe = Stripe('pk_test_51KWwrwSJkerzRPBUoBOjuIwJc4r9e77OL6ngOEBRW3LAvhODA1r9FnQ9x8rih3HHY3tWszZnbaCOa0PCpSTUqZ8L00emnqqujS');
+    stripe.redirectToCheckout({ sessionId: "<%= @session.id %>" });
+	});
+</script>

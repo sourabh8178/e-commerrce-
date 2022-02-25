@@ -77,6 +77,8 @@ gem 'omniauth-github'
 gem 'omniauth-pinterest'
 
 gem 'friendly_id'
+gem 'stripe'
+
 
 # gem 'acts_as_shopping_cart', :github => 'crowdint/acts_as_shopping_cart', :branch => '0-1-x'
 
