@@ -36,8 +36,8 @@ class CartsController < ApplicationController
     })
   end
 
+
   def success
-    byebug
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
     customer = Stripe::Customer.retrieve(session.customer)
    @cart_items = Product.where(id: params[:product_ids].split(/\D+/).reject(&:empty?).map(&:to_i))
@@ -45,7 +45,8 @@ class CartsController < ApplicationController
     order = OrderBooking.new
     order.customer_email = customer["email"]
     order.customer_id = customer["id"]
-    order.product_id = params[:product_ids]
+    order.user_id = current_user.id
+    order.product_id = params[:product_ids].split(/\D+/).reject(&:empty?).map(&:to_i)
     order.customer_city = customer["address"]["city"]
     order.customer_country = customer["address"]["country"]
     order.customer_address_line_one =  customer["address"]["line1"]
@@ -59,9 +60,14 @@ class CartsController < ApplicationController
     current_user.cart.clear
     redirect_to "/success"
   end
+  
 
   def cancel
-    byebug
+    redirect_to "/cancel"
+  end
+  
+   def cancel_page
+    
   end
 
   def success_page
@@ -72,6 +78,10 @@ class CartsController < ApplicationController
     @carts = Cart.create(name: params[:form][:name], email: params[:current_user.email])
     CartshopMailer.cart_mail(@carts).deliver_now 
     redirect_to homes_path
+  end
+
+  def address
+    @address = Address.all
   end
 
 end

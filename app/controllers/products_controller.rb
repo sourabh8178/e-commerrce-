@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
       @cart = Cart.create(user_id: current_user.id)
     end  
     @product = Product.find_by(id: params[:product_id])
-    @cart.add(@product, @product.price)
+    @cart.add(@product, @product.calculate_discount(@product))
     redirect_to carts_path
   end
 

@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  resources :addresses
   ActiveAdmin.routes(self)
   root "homes#index"
   get "products",to: "products#index"
   get  "products/:id", to: "products#show", as: "show"
   get "/homes", to: "homes#index"
   get "/categorys", to: "categorys#index"
+  get "/orders", to: "orders#index"
+  get "/addresses", to: "addresses#index"
+
+
   resource :articles
   devise_for :admin_users, ActiveAdmin::Devise.config
   
@@ -35,6 +40,7 @@ Rails.application.routes.draw do
   get "/carts/success", to: "carts#success"
   get "/carts/cancel", to: "carts#cancel"
   get "/success", to: "carts#success_page"
+  get "/cancel", to: "carts#cancel_page"
   
   resource :contacts
 
