@@ -10,37 +10,50 @@ class CartsController < ApplicationController
   end
 
   def checkout
-    Stripe.api_key = "sk_test_51KWwrwSJkerzRPBUxkXVy9PTD9clPnX2KrEycutGuZxdFULjpNu1W6Lev5jSpYUmCc99SumqCo3JKOUD2mYr2nvD00UY2qQ9hk"
-    @session = Stripe::Checkout::Session.create({
-      line_items: [{
-        price_data: {
-          currency: 'inr',
-          product_data: {
-            name: "#{current_user.cart.cart_items.map{|data| data.item.id}}",
+    if params["order"]["cash_on_delivery"].present?
+      @cart_items = Product.where(id: current_user.cart.cart_items.map(&:item_id))
+      order = OrderBooking.new
+      order.customer_email = current_user.email
+      order.customer_id = current_user.id
+      order.user_id = current_user.id
+      order.product_id = current_user.cart.cart_items.map(&:item_id)
+      order.amount_total = current_user.cart.subtotal
+      order.address_id = params["order"]["address_id"]
+      order.cash_on_delivery = true
+      order.save
+      current_user.cart.clear
+      redirect_to "/success"
+    else  
+      Stripe.api_key = "sk_test_51KWwrwSJkerzRPBUxkXVy9PTD9clPnX2KrEycutGuZxdFULjpNu1W6Lev5jSpYUmCc99SumqCo3JKOUD2mYr2nvD00UY2qQ9hk"
+      @session = Stripe::Checkout::Session.create({
+        line_items: [{
+          price_data: {
+            currency: 'inr',
+            product_data: {
+              name: "#{current_user.cart.cart_items.map{|data| data.item.id}}",
+            },
+            
+            unit_amount: (current_user.cart.subtotal.to_f*100.0).to_i,
           },
-          
-          unit_amount: (current_user.cart.subtotal.to_f*100.0).to_i,
+          quantity: 1,
+        }],
+       
+        mode: 'payment',
+        shipping_address_collection: {
+          allowed_countries: ['IN'],
         },
-        quantity: 1,
-      }],
-      phone_number_collection: {
-        enabled: true
-      },
-      mode: 'payment',
-      shipping_address_collection: {
-        allowed_countries: ['IN'],
-      },
-      # These placeholder URLs will be replaced in a following step.
-      success_url: "http://localhost:3000/carts/success?session_id={CHECKOUT_SESSION_ID}&product_ids=#{current_user.cart.cart_items.map(&:item_id)}",
-      cancel_url: 'http://localhost:3000/carts//cancel',
-    })
+        # These placeholder URLs will be replaced in a following step.
+        success_url: "http://localhost:3000/carts/success?session_id={CHECKOUT_SESSION_ID}&product_ids=#{current_user.cart.cart_items.map(&:item_id)}&address_id=#{params["order"]["address_id"]}",
+        cancel_url: 'http://localhost:3000/carts//cancel',
+      })
+    end  
   end
 
 
   def success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
     customer = Stripe::Customer.retrieve(session.customer)
-   @cart_items = Product.where(id: params[:product_ids].split(/\D+/).reject(&:empty?).map(&:to_i))
+    @cart_items = Product.where(id: params[:product_ids].split(/\D+/).reject(&:empty?).map(&:to_i))
     
     order = OrderBooking.new
     order.customer_email = customer["email"]
@@ -56,11 +69,11 @@ class CartsController < ApplicationController
     order.phone = customer["phone"]
     order.payment_intent = session["payment_intent"]
     order.amount_total = session["amount_total"]
+    order.address_id = params[:address_id]
     order.save
     current_user.cart.clear
     redirect_to "/success"
   end
-  
 
   def cancel
     redirect_to "/cancel"

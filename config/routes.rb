@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "/homes", to: "homes#index"
   get "/categorys", to: "categorys#index"
   get "/orders", to: "orders#index"
-  get "/addresses", to: "addresses#index"
+  get "/addresses", to: "addresses#new"
 
 
   resource :articles

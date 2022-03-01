@@ -25,12 +25,13 @@ class AddressesController < InheritedResources::Base
     @address.user_id = current_user.id
     respond_to do |format|
       if @address.save
-        format.html { redirect_to address_url(@address), notice: "address was successfully created." }
         format.json { render :show, status: :created, location: @address }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
+        redirect_to "/success"
+
     end
   end
 

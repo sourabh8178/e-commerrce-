@@ -83,10 +83,17 @@
 					      <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
 					    </div>
 					    <div class="d-flex justify-content-between mb-5">
-					      <p class="text-muted mb-0">Address  : <%= order.customer_address_line_one%> <%= order.customer_address_line_two%> <%= order.customer_city%> <%= order.customer_state%> <%= order.post_code%></p>
+					      <p class="text-muted mb-0"><span class="fw-bold me-4">Cash On Delivery:</span> <strong><%= order.cash_on_delivery %></strong></p>
+					    </div>
+					    <div class="d-flex justify-content-between mb-5">
+					      <p class="text-muted mb-0">Address  : 
+					      	<% @address = Address.find_by(id: order.address_id) %>
+					      	<% if @address.present? %>
+					      		<%= @address.line1 %>, <%= @address.line2 %>, <%= @address.landmark %>, <%= @address.state %>, <%= @address.pincode %></p>
+					      	<% end %>	
 					    </div>
 					  </div>
-					  <div class="card-footer border-0 px-4 py-5" style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+					  <div class="card-footer border-0 px-4 py-5" style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;"><button class="btn btn-danger">Cancel order</button>
 					    <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total paid: <span class="h2 mb-0 ms-2"><%= order.amount_total %></span></h5>
 					  </div>
 					</div>
