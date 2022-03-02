@@ -25,12 +25,14 @@ class AddressesController < InheritedResources::Base
     @address.user_id = current_user.id
     respond_to do |format|
       if @address.save
+        format.html { redirect_to address_url(@address), notice: "Address was successfully created." }
         format.json { render :show, status: :created, location: @address }
+
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
-        redirect_to "/success"
+        
 
     end
   end
@@ -65,6 +67,6 @@ class AddressesController < InheritedResources::Base
     end
 
     def address_params
-      params.require(:address).permit(:email, :phone, :line1, :line2, :landmark, :state, :pincode, :country)
+      params.require(:address).permit(:email, :phone, :line1, :line2, :landmark, :pincode, :state, :country)
     end
 end

@@ -21,6 +21,7 @@ class CartsController < ApplicationController
       order.address_id = params["order"]["address_id"]
       order.cash_on_delivery = true
       order.save
+      OrderStatus.create(order_id: order.id, status: "created")
       current_user.cart.clear
       redirect_to "/success"
     else  
@@ -71,6 +72,7 @@ class CartsController < ApplicationController
     order.amount_total = session["amount_total"]
     order.address_id = params[:address_id]
     order.save
+    OrderStatus.create(order_id: order.id, status: "created")
     current_user.cart.clear
     redirect_to "/success"
   end

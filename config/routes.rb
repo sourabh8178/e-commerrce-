@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   get "/add_to_dolike/:product_id", to: "products#add_to_dolike"
   get "/remove_to_dolike/:product_id", to: "products#remove_to_dolike"
+  get "/cancel/:order_id", to: "orders#cancel"
 
 
   get "/search", to: "products#search"

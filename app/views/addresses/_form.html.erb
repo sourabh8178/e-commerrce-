@@ -29,14 +29,15 @@
       <%= form.text_field :line2, class: "form-control" , placeholder: "Apartment, studio, or floor", :required => true %>
     </div>
     <div class="col-md-6">
-      <label for="inputState" >State</label>
-      <%= form.text_field :state, class: "form-control", :required => true   %>
-    </div>
-    <div class="col-md-6">
       <label for="inputZip" >Zip</label>
       <%= form.number_field :pincode, class: "form-control", :required => true   %>
     </div>
 
+    <div class="col-md-6">
+      <label for="inputState" >State</label>
+      <%= form.text_field :state, class: "form-control", :required => true   %>
+    </div>
+    
     <div class="col-md-6">
       <label for="inputCity" >country</label>
       <%= form.text_field :country, class: "form-control", :required => true   %>
@@ -45,7 +46,7 @@
 
     <div  style="margin-left:120px">
       <%= form.submit :submit, class: "btn btn-info"%>
-      <%= link_to 'Back', addresses_path, class: "btn btn-info" %>
+      <%= link_to 'Back', carts_path, class: "btn btn-info" %>
     </div>
   </form><br><br>
   </div>

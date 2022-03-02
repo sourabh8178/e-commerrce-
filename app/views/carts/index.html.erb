@@ -53,11 +53,18 @@
           </div>
         </div> -->
         <br>
-
+       
+        <strong>Select one Address </strong>
         <%= form_for "data", url: "/create-checkout-session" do |form| %>
           <% current_user.addresses.each do |ad|%>
-            <p><input type="radio" name="order[address_id]" class="choose_address" value="<%= ad.id %>" required> <%= ad.state %><%= ad.line1%><%= ad.line2%><%= ad.phone%><%= ad.line1%><%= ad.pincode%><%= ad.country%><%= ad.landmark%></p>
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><p><input type="radio" name="order[address_id]" class="choose_address" value="<%= ad.id %>" required> <%= ad.state %> , <%= ad.line1%> , <%= ad.line2%> , <%= ad.phone%> , <%= ad.pincode%> , <%= ad.country%></p></li>
+            
+          </ul>
+        </div>
           <% end %>
+           <a href="/addresses/new">Create new address </a>
 
           <div class="card">
             <div class="card-body">
@@ -76,9 +83,7 @@
     </div>
   </div>
 </section>
-
 <% end %>
-
 <script type="text/javascript">
   $(function(){
     $("input[type='radio']").change(function(){

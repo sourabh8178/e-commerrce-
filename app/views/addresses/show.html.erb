@@ -1,47 +1,36 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Email:</strong>
+  <strong style="margin-left:200px; font-size: 25px; text-align: center;">Your Address</strong>
+  <ul class="list-group list-group-flush">
+  <li class="list-group-item"><p>
+  <strong style="margin-left:100px;">Email:</strong>
   <%= @address.email %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
+</p></li>
+  <li class="list-group-item"><p>
+  <strong style="margin-left:100px;">Phone:</strong>
   <%= @address.phone %>
-</p>
-
-<p>
-  <strong>Line1:</strong>
+</p></li>
+  <li class="list-group-item"><p>
+  <strong style="margin-left:100px;">Line1:</strong>
   <%= @address.line1 %>
-</p>
-
-<p>
-  <strong>Line2:</strong>
+</p></li>
+  <li class="list-group-item"><p>
+  <strong style="margin-left:100px;">Line2:</strong>
   <%= @address.line2 %>
-</p>
-
-<p>
-  <strong>Landmark:</strong>
-  <%= @address.landmark %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @address.state %>
-</p>
-
-<p>
-  <strong>Pincode:</strong>
+</p></li>
+  <li class="list-group-item"><p>
+  <strong style="margin-left:100px;">Pincode:</strong>
   <%= @address.pincode %>
-</p>
-
-<p>
-  <strong>Country:</strong>
+</p></li>
+  <li class="list-group-item"><p>
+  <strong style="margin-left:100px;">State:</strong>
+  <%= @address.state %>
+</p></li>
+  <li class="list-group-item"><p>
+  <strong style="margin-left:100px;">Country:</strong>
   <%= @address.country %>
-</p>
+</p></li>
+</ul><br>
 
-<%= link_to 'Edit', edit_address_path(@address) %> |
-<%= link_to 'Back', addresses_path %>
-
+<%= link_to 'Continue', carts_path,class: "btn btn-info", style: "margin-left:150px" %><hr>
 
 

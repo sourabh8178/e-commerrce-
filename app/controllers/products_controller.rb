@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
     end
   end
 
+
   def add_to_cart
     if current_user.cart.present?
       @cart = current_user.cart
