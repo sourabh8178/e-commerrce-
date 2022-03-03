@@ -37,21 +37,23 @@
           <li class="nav-item <%= active_class?("homes") %>" onclick="location.href='/homes'" >
             <a class="nav-link" href="javascript:void(0);" >HOME</a>
           </li>
-          <li class="nav-item <%= active_class?("orders") %>" onclick="location.href='/orders'" >
-            <a class="nav-link" href="javascript:void(0);" >ORDERS</a>
-          </li>
           <li class="nav-item <%= active_class?("products") %>" onclick="location.href='/products'">
             <a class="nav-link" href="javascript:void(0);" >PRODUCT</a>
           </li>
           <li class="nav-item <%= active_class?("categorys") %>" onclick="location.href='/categorys'">
             <a class="nav-link" href="javascript:void(0);">CATEGORIES</a>
           </li>
+          <% if current_user.present? %>
            <li class="nav-item <%= active_class?("carts") %>" onclick="location.href='/carts'">
             <a class="nav-link" href="javascript:void(0);">CART</a>
           </li>
           <li class="nav-item <%= active_class?("wishlists") %>" onclick="location.href='/wishlists'">
             <a class="nav-link" href="javascript:void(0);">WHISHLIST</a>
           </li>
+          <li class="nav-item <%= active_class?("orders") %>" onclick="location.href='/orders'" >
+            <a class="nav-link" href="javascript:void(0);" >ORDERS</a>
+          </li>
+          <% end %>
           <li class="nav-item <%= active_class?("contacts") %>" onclick="location.href='/contacts'">
             <a class="nav-link" href="javascript:void(0);">CONTACT</a>
           </li>

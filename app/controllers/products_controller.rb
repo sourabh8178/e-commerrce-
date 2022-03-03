@@ -45,11 +45,17 @@ class ProductsController < ApplicationController
 
   def remove_to_wishlist
     Wishlist.where(user_id: current_user.id, product_id: params[:product_id]).destroy_all
-    redirect_to wishlists_path
+    redirect_to request.referrer
   end
   def show
-    @product = Product.find_by(id: params[:id])
-    # @product = Product.friendly.find(params[:id])
+    byebug
+    # @product = Product.find_by(id: params[:id])
+    # @user = User.friendly.find(params[:id])
+    if Product.friendly.find(params[:id]).present?
+      @product = Product.friendly.find(params[:id])
+    else
+      @product = Product.find(params[:id])
+    end
   end
 
   def add_to_dolike

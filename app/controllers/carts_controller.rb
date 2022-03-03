@@ -19,9 +19,14 @@ class CartsController < ApplicationController
       order.product_id = current_user.cart.cart_items.map(&:item_id)
       order.amount_total = current_user.cart.subtotal
       order.address_id = params["order"]["address_id"]
+      # order.customer_address_line_one = params["address"]["line1"]
+      # order.customer_address_line_two = customer["address"]["line2"]
+      # order.post_code = params["address"]["postal_code"]
+      # order.customer_state = params["address"]["state"]
+      # order.phone = params["address"]["phone"]
       order.cash_on_delivery = true
       order.save
-      OrderStatus.create(order_id: order.id, status: "created")
+      OrderStatus.create(order_id: params[:order_id], status: "created")
       current_user.cart.clear
       redirect_to "/success"
     else  
@@ -72,12 +77,16 @@ class CartsController < ApplicationController
     order.amount_total = session["amount_total"]
     order.address_id = params[:address_id]
     order.save
-    OrderStatus.create(order_id: order.id, status: "created")
+    OrderStatus.create(order_id: params[:order_id], status: "created")
     current_user.cart.clear
     redirect_to "/success"
   end
 
   def cancel
+    
+   
+
+
     redirect_to "/cancel"
   end
   

@@ -10,7 +10,7 @@
                 <div class="wrapper row">
                     <div class="preview col-md-6">
                         <div class="-pic tab-content">
-                          <div class="tab-pane active" ><%= image_tag @product.image_url %></div>
+                          <div class="tab-pane active" ><%= image_tag @product.image_url rescue nil%></div>
                           <!-- <div claspreviews="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
                           <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
                           <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
@@ -54,7 +54,7 @@
                         </h5>
                         <% if current_user.present? %>
                             <a href="/add_to_cart/<%= @product.id %>" data-tip="Add to Cart" class="btn btn-info"> Add to cart   <i class="fa fa-shopping-cart"></i></a>
-                        <% end %>   
+                        <% end %>
                         
                     </div>   
                         

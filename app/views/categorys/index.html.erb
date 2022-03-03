@@ -11,7 +11,7 @@
                     <div class="product-grid">
                       <div class="product-image">
                         <a href="#">
-                         <h3 class="image"><a href="/products/<%= pro.id %>"><%= image_tag pro.image_url %></a></h3>
+                         <h3 class="image"><a href="/products/<%= pro.id %>"><%= image_tag pro.image_url rescue nil%></a></h3>
                         </a>
                         
                         <ul class="social">

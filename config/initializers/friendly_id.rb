@@ -10,8 +10,6 @@
 # http://norman.github.io/friendly_id/file.Guide.html
 
 FriendlyId.defaults do |config|
-       config.use :finders
-       config.use :slugged
   # ## Reserved Words
   #
   # Some words could conflict with Rails's routes when used as slugs, or are

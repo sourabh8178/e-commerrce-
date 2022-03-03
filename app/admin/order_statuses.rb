@@ -5,7 +5,7 @@ ActiveAdmin.register OrderStatus do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :order_id, :status, :cancel_order
+  permit_params :order_id, :status, :cancel_order, :refund
   #
   # or
   #
