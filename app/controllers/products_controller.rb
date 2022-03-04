@@ -48,14 +48,13 @@ class ProductsController < ApplicationController
     redirect_to request.referrer
   end
   def show
-    byebug
     # @product = Product.find_by(id: params[:id])
     # @user = User.friendly.find(params[:id])
-    if Product.friendly.find(params[:id]).present?
-      @product = Product.friendly.find(params[:id])
-    else
+    # if Product.friendly.find(params[:id]).present?
+    #   @product = Product.friendly.find(params[:id])
+    # else
       @product = Product.find(params[:id])
-    end
+    # end
   end
 
   def add_to_dolike
