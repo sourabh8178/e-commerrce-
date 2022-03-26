@@ -50,8 +50,8 @@ class CartsController < ApplicationController
           allowed_countries: ['IN'],
         },
         # These placeholder URLs will be replaced in a following step.
-        success_url: "https://flip-cart-lite.herokuapp.com/carts/success?session_id={CHECKOUT_SESSION_ID}&product_ids=#{current_user.cart.cart_items.map(&:item_id)}&address_id=#{params["order"]["address_id"]}",
-        cancel_url: 'https://flip-cart-lite.herokuapp.com/carts//cancel',
+        success_url: "http://localhost:3000//carts/success?session_id={CHECKOUT_SESSION_ID}&product_ids=#{current_user.cart.cart_items.map(&:item_id)}&address_id=#{params["order"]["address_id"]}",
+        cancel_url: 'http://localhost:3000//carts/cancel',
       })
     end  
   end

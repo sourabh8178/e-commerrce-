@@ -45,10 +45,11 @@
           </li>
           <% if current_user.present? %>
            <li class="nav-item <%= active_class?("carts") %>" onclick="location.href='/carts'">
-            <a class="nav-link" href="javascript:void(0);">CART</a>
+
+            <a class="nav-link" href="javascript:void(0);">CART (<%= current_user.cart.cart_items.count %>)</a>
           </li>
           <li class="nav-item <%= active_class?("wishlists") %>" onclick="location.href='/wishlists'">
-            <a class="nav-link" href="javascript:void(0);">WHISHLIST</a>
+            <a class="nav-link" href="javascript:void(0);">WHISHLIST (<%= current_user.wishlists.count %>)</a>
           </li>
           <li class="nav-item <%= active_class?("orders") %>" onclick="location.href='/orders'" >
             <a class="nav-link" href="javascript:void(0);" >ORDERS</a>

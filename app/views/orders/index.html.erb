@@ -1,3 +1,7 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <h2>Order details  </h2>
 <% current_user.order_bookings.each do |order| %>
 	<section class="h-100 gradient-custom">
@@ -27,9 +31,7 @@
 							          <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
 							            <p class="text-muted mb-0 small"><%= product.name %></p>
 							          </div>
-							          <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-							            <p class="text-muted mb-0 small">Capacity: 64GB</p>
-							          </div>
+							          
 							          <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
 							            <p class="text-muted mb-0 small">Qty: <%#= product_id.quantity %></p>
 							          </div>
@@ -102,8 +104,40 @@
 	            			<% else %>
 	               		<a href="/cancel/<%= order.id %>" data-tip="Cancel Order" onclick="alert('cancel order')" class="btn btn-danger">Cancel order</a>
 			            <% end %>	
-						    	<h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total paid: <span class="h2 mb-0 ms-2"><%= order.amount_total %></span></h5>
-						  </div>
+						<div class="container">
+			            <br>
+			            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#form"> See Modal with Form </button>
+						<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						    <div class="modal-dialog modal-dialog-centered" role="document">
+						        <div class="modal-content">
+						            <div class="text-right cross" data-dismiss="modal"> <i class="fa fa-times mr-2"></i> </div>
+						            <div class="card-body text-center"> <img src=" https://i.imgur.com/d2dKtI7.png" height="100" width="100">
+						                <div class="comment-box text-center">
+						                		<%= form_with(model: @review, local: true) do |form| %>
+																	<% if @review.errors.any? %>
+																	<div id="error_explanation">
+																	<h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+																	<ul>
+																	<% @review.errors.full_messages.each do |message| %>
+																	<li><%= message %></li>
+																	<% end %>
+																	</ul>
+																	</div>
+																	<% end %>
+						                    <h4>Add a comment</h4>
+						                    <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label> </div>
+						                    <div class="comment-area">  <%= form.text_area :comment, class: "form-control", :required => true,  placeholder: "What is your views?" %> </div><br><br>
+						                    
+						                    <div  style="text-align: center;">
+																<%= form.submit :submit, class: "btn btn-info"%>
+																<%= link_to 'Back', orders_path, class: "btn btn-info" %>
+																</div>
+																</form><br><br>
+																</div>
+																<% end %>
+											
+					    	<h5 class="d-flex align-items-center justify-content-end text-white">Total paid: <span class="h2 mb-0 ms-2"><%= order.amount_total %></span></h5>
 					</div>
 				</div>
 			</div>
@@ -121,5 +155,97 @@
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
+
+/*html,
+body {
+    height: 100%
+}*/
+
+/*body {
+    display: grid;
+    place-items: center;
+    font-family: 'Manrope', sans-serif;
+    background: #000
+}
+*/
+.cross {
+    padding: 10px;
+    color: #d6312d;
+    cursor: pointer;
+    font-size: 23px
+}
+
+.cross i {
+    margin-top: -5px;
+    cursor: pointer
+}
+
+.comment-box {
+    padding: 5px
+}
+
+.comment-area textarea {
+    resize: none;
+    border: 1px solid #ebab34
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ffffff;
+    outline: 0;
+    box-shadow: 0 0 0 1px rgb(255, 0, 0) !important
+}
+
+.send {
+    color: #fff;
+    background-color: #ebab34;
+    border-color: #ebab34
+}
+
+.send:hover {
+    color: #fff;
+    background-color: #ebab34;
+    border-color: #ebab34
+}
+
+.rating {
+    display: inline-flex;
+    margin-top: -10px;
+    flex-direction: row-reverse
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 28px;
+    font-size: 35px;
+    color: #ebab34;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
 }
 </style>

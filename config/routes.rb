@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :feedbacks
   resources :addresses
   ActiveAdmin.routes(self)
   root "homes#index"
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
   get "/cancel", to: "carts#cancel_page"
   
   resource :contacts
+  resource :reviews
 
   # match '/auth/:provider/callback', :to => 'sessions#create', via: [:get, :post]
   # match '/auth/:provider/callback', :to => 'sessions#create'

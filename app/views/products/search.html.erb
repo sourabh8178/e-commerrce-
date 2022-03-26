@@ -1,5 +1,4 @@
 <!-- <h1 style="text-align: center; text-decoration: none; cursor: pointer;">Home Page</h1><br> -->
-
 <div class="container">
   <div class="row">
   	<% @products.each do |product| %>
@@ -40,7 +39,7 @@
 	          <li class="fa fa-star"></li>
 	          <li class="fa fa-star disable"></li>
 	        </ul>
-	          <h3 class="title"><a href="/products/<%= product.id %>"><%= product.name %></a></h3>
+	          <h3 ><% product.id %><%= product.name %></h3>
 	          <div class="price">
 	          	<i class= "fa fa-rupee"></i><%= product.calculate_discount(product) %>
 	            <span> <i class= "fa fa-rupee"></i><%= product.price %></span>
