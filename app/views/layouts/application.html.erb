@@ -46,10 +46,10 @@
           <% if current_user.present? %>
            <li class="nav-item <%= active_class?("carts") %>" onclick="location.href='/carts'">
 
-            <a class="nav-link" href="javascript:void(0);">CART (<%= current_user.cart.cart_items.count %>)</a>
+            <a class="nav-link" href="javascript:void(0);">CART (<%= current_user.cart.cart_items.count rescue 0 %>)</a>
           </li>
           <li class="nav-item <%= active_class?("wishlists") %>" onclick="location.href='/wishlists'">
-            <a class="nav-link" href="javascript:void(0);">WHISHLIST (<%= current_user.wishlists.count %>)</a>
+            <a class="nav-link" href="javascript:void(0);">WHISHLIST (<%= current_user.wishlists.count rescue 0 %>)</a>
           </li>
           <li class="nav-item <%= active_class?("orders") %>" onclick="location.href='/orders'" >
             <a class="nav-link" href="javascript:void(0);" >ORDERS</a>

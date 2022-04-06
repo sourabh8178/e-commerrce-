@@ -68,28 +68,22 @@
 	          </a>
 	          <ul class="social">
 	            <li>
-	            	<% if current_user.present? %>
 	            	<% if Dolike.where(user_id: current_user, product_id: product.id).present? %>
 	               	<a href="/remove_to_dolike/<%= product.id %>" data-tip="Dislike"><i class="fas fa-thumbs-up"></i></a>
 	            	<% else%>
 	            	 <a href="/add_to_dolike/<%= product.id %>" data-tip="Like"><i class="far fa-thumbs-up"></i></a>
 	            	<% end %>	
-	            	<% end %>	
 	            </li>
 	            <li>
-	            	<% if current_user.present? %>
-		            	<% if Wishlist.where(user_id: current_user.id, product_id: product.id).present? %>
+		            	<% if Wishlist.where(user_id: current_user.try(:id), product_id: product.try(:id)).present? %>
 		            		<a href="/remove_to_wishlist/<%= product.id %>" data-tip="Remove to Wishlist">
 		            			<i class="fas fa-heart-broken"></i></a>
 		            	<% else %>
 		            		<a href="/add_to_wishlist/<%= product.id %>" data-tip="Add to Wishlist"><i class="fa fa-heart"></i></a>
 		            	<% end %>
-		            <% end %>		
 	            </li>
 	            <li>
-	            	<% if current_user.present? %>
 	            		<a href="/add_to_cart/<%= product.id %>" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a>
-	            	<% end %>	
 	            </li>
 	          </ul>
 	          <span class="product-new-label" style="background-color: indianred;">Sale</span>

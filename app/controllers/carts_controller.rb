@@ -58,10 +58,10 @@ class CartsController < ApplicationController
 
 
   def success
+    byebug
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
     customer = Stripe::Customer.retrieve(session.customer)
     @cart_items = Product.where(id: params[:product_ids].split(/\D+/).reject(&:empty?).map(&:to_i))
-    
     order = OrderBooking.new
     order.customer_email = customer["email"]
     order.customer_id = customer["id"]

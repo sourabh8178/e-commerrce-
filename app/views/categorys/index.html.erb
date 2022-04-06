@@ -17,19 +17,18 @@
                         <ul class="social">
                           <li><a href="/products/<%= pro.id %>" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
                           <li>
-                            <% if current_user.present? %>
-                              <% if Wishlist.where(user_id: current_user.id, product_id: pro.id).present? %>
+                            
+                              <% if Wishlist.where(user_id: current_user.try(:id), product_id: pro.try(:id)).present? %>
                                 <a href="/remove_to_wishlist/<%= pro.id %>" data-tip="Remove to Wishlist">
                                   <i class="fas fa-heart-broken"></i></a>
                               <% else %>
                                 <a href="/add_to_wishlist/<%= pro.id %>" data-tip="Add to Wishlist"><i class="fa fa-heart"></i></a>
                               <% end %>
-                            <% end %>   
                           </li>
                           <li>
-                            <% if current_user.present? %>
+                            
                               <a href="/add_to_cart/<%= pro.id %>" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a>
-                            <% end %> 
+                            
                           </li>
                         </ul>
                         <span class="product-new-label" style="background-color: indianred;">Sale</span>
