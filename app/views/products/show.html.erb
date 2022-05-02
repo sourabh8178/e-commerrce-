@@ -10,7 +10,7 @@
                 <div class="wrapper row">
                     <div class="preview col-md-6">
                         <div class="-pic tab-content">
-                          <div class="tab-pane active" ><%= image_tag @product.image_url rescue nil%></div>
+                          <div class="tab-pane active img" ><%= image_tag @product.image_url rescue nil%></div>
                           <!-- <div claspreviews="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
                           <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
                           <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
@@ -69,6 +69,10 @@
 .tab-pane {
     margin-top: 20px;
     margin-left: 30px;
+ }
+ img {
     
+    height: 20px;
+    width: 30px;
 }
 </style>

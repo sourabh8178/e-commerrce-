@@ -48,6 +48,7 @@ class ProductsController < ApplicationController
     redirect_to request.referrer
   end
   def show
+    @reviews = Review.all
     # @product = Product.find_by(id: params[:id])
     # @user = User.friendly.find(params[:id])
     # if Product.friendly.find(params[:id]).present?

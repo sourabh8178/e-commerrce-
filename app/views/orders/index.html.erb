@@ -1,112 +1,32 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<h2>Order details  </h2>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<div class="container bootdey">
+    <div class="panel panel-default panel-order">
+        <div class="panel-heading">
+            <strong>Order history</strong>
+        </div>
 <% current_user.order_bookings.each do |order| %>
-	<section class="h-100 gradient-custom">
-		<div class="container py-5 h-100">
-			<div class="row d-flex justify-content-center align-items-center h-100">
-				<div class="col-lg-10 col-xl-8">
-					<div class="card" style="border-radius: 10px;">
-					  <div class="card-header px-4 py-5">
-					    <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #a8729a;">Anna</span>!</h5>
-					  </div>
-					  <div class="card-body p-4">
-					    <div class="d-flex justify-content-between align-items-center mb-4">
-					      <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
-					      <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
-					    </div>
-						    <% order.product_id.each do |product_id|%>
-						    	<% product = Product.find_by(id: product_id) %> 
-							    <div class="card shadow-0 border mb-4">
-							      <div class="card-body">
-							        <div class="row">
-							          <div class="col-md-2">
-							            <%= image_tag product.image_url,  class: "img-fluid", alt: "Phone" %>
-							          </div>
-							          <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-							            <p class="text-muted mb-0"> <%#= order.product_id.name%></p>
-							          </div>
-							          <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-							            <p class="text-muted mb-0 small"><%= product.name %></p>
-							          </div>
-							          
-							          <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-							            <p class="text-muted mb-0 small">Qty: <%#= product_id.quantity %></p>
-							          </div>
-							          <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-							            <p class="text-muted mb-0 small"><%= product.calculate_discount(product) %></p>
-							          </div>
-							        </div>
-							       
-							      </div>
-							    </div>
-							  <% end %>  
-							   <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-							        <div class="row d-flex align-items-center">
-							          <div class="col-md-2">
-							            <p class="text-muted mb-0 small">Track Order</p>
-							          </div>
-							          <div class="col-md-10">
-							            <div class="progress" style="height: 6px; border-radius: 16px;">
-							              <div
-							                class="progress-bar"
-							                role="progressbar"
-							                style="width: 20%; border-radius: 16px; background-color: #a8729a;"
-							                aria-valuenow="65"
-							                aria-valuemin="50"
-							                aria-valuemax="100"
-							              ></div>
-							            </div>
-							            <div class="d-flex justify-content-around mb-1">
-							              <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivary</p>
-							              <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
-							            </div>
-							          </div>
-							        </div>
-
-							    <div class="d-flex justify-content-between pt-2">
-							      <p class="fw-bold mb-0">Order Details</p>
-							      <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> <%= order.amount_total %></p>
-							    </div>
-
-							    <div class="d-flex justify-content-between pt-2">
-							      <p class="text-muted mb-0">Invoice Number : <%= order.payment_intent %></p>
-							      <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p>
-							    </div>
-
-							    <div class="d-flex justify-content-between">
-							      <p class="text-muted mb-0">Invoice Date : <%= order.created_at %></p>
-							      <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span> 123</p>
-							    </div>
-
-							    <div class="d-flex justify-content-between mb-5">
-							      <p class="text-muted mb-0">Phone number  : <%= order.phone%></p>
-							      <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
-							    </div>
-							    <div class="d-flex justify-content-between mb-5">
-							      <p class="text-muted mb-0"><span class="fw-bold me-4">Cash On Delivery:</span> <strong><%= order.cash_on_delivery %></strong> </p>
-							      <p class="text-muted mb-0"><span class="fw-bold me-4">Refund:</span> <strong><%= OrderStatus.where(order_id: order.id).last.refund rescue nil %></strong> </p>
-							    </div>
-							    <div class="d-flex justify-content-between mb-5">
-							      <p class="text-muted mb-0">Address  : 
-							      	<% @address = Address.find_by(id: order.address_id) %>
-							      	<% if @address.present? %>
-							      		<%= @address.line1 %>, <%= @address.line2 %>, <%= @address.landmark %>, <%= @address.state %>, <%= @address.pincode %></p>
-							      	<% end %>	
-							    </div>
-					  </div>
-						  <div class="card-footer border-0 px-4 py-5" style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-							  	<% if OrderStatus.where(order_id: order.id).map(&:status).include?("cancelled") %>
-							  		<button type="button" class="btn btn-danger" disabled>order has been canceled!</button>
-
-	            			<% else %>
-	               		<a href="/cancel/<%= order.id %>" data-tip="Cancel Order" onclick="alert('cancel order')" class="btn btn-danger">Cancel order</a>
-			            <% end %>	
-						<div class="container">
-			            <br>
-			            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#form"> See Modal with Form </button>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right"><label class="label label-info">
+                            	<% if OrderStatus.where(order_id: order.id).map(&:status).include?("cancelled") %>
+					            <div class="col-3"> <span id="price"><button type="button" class="btn btn-warning" disabled>Canceled!</button></span> </div>
+                                <% elsif OrderStatus.where(order_id: order.id).map(&:status).include?("deliverd") %>
+                                <div class="col-3"> <span id="price"><button type="button" class="btn btn-success" disabled>Deliverd!</button></span> </div>
+                                <% else %>
+					            <div class="col-3"> <span id="price"><a href="/cancel/<%= order.id %>" data-tip="Cancel Order" onclick="alert('cancel order')" class="btn btn-danger">Cancel order</a></span> </div>
+					            <% end %>
+                                    </label></div>
+                            <span><strong><%= order.id%></strong></span> <span class="label label-info">
+                            	<%= order.product_id.join(', ')%></span><br/>
+                             cost: RS:<%= order.amount_total%><br />
+                             <% current_user.reviews.each do |review|%>
+                             <%= review.comment%>
+                             <%= review.rating%>
+                             <% end %>
+                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#form"> Add review </button>
 						<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						    <div class="modal-dialog modal-dialog-centered" role="document">
 						        <div class="modal-content">
@@ -114,109 +34,92 @@
 						            <div class="card-body text-center"> <img src=" https://i.imgur.com/d2dKtI7.png" height="100" width="100">
 						                <div class="comment-box text-center">
 						                		<%= form_with(model: @review, local: true) do |form| %>
-																	<% if @review.errors.any? %>
-																	<div id="error_explanation">
-																	<h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+														<% if @review.errors.any? %>
+														<div id="error_explanation">
+														<h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
 
-																	<ul>
-																	<% @review.errors.full_messages.each do |message| %>
-																	<li><%= message %></li>
-																	<% end %>
-																	</ul>
-																	</div>
-																	<% end %>
-						                    <h4>Add a comment</h4>
-						                    <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label> </div>
-						                    <div class="comment-area">  <%= form.text_area :comment, class: "form-control", :required => true,  placeholder: "What is your views?" %> </div><br><br>
-						                    
-						                    <div  style="text-align: center;">
+														<ul>
+														<% @review.errors.full_messages.each do |message| %>
+														<li><%= message %></li>
+														<% end %>
+														</ul>
+														</div>
+														<% end %>
+								                    <h4>Add a comment</h4>
+								                    <div class="rating"><input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label> </div>
+								                    <div class="comment-area">  <%= form.text_area :comment, class: "form-control", :required => true,  placeholder: "What is your views?" %> </div><br><br>
+								                    
+								                    <div  style="text-align: center;">
 																<%= form.submit :submit, class: "btn btn-info"%>
 																<%= link_to 'Back', orders_path, class: "btn btn-info" %>
-																</div>
-																</form><br><br>
-																</div>
-																<% end %>
-											
-					    	<h5 class="d-flex align-items-center justify-content-end text-white">Total paid: <span class="h2 mb-0 ms-2"><%= order.amount_total %></span></h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section><br>
-<%end%>
+													</div>
+													</form><br><br>
+													</div>
+												<% end %>
+                             		</div>
+                     			</div>
+                     		</div>
+                         </div>
+                    </div>
+                        <div class="col-md-12">order made on: <%= order.created_at%> </div>
+                </div>
+            </div>
+	</div>
+</div>   
+<% end %>        
+    </div>
+</div>
 
-<style type="text/css">
-	.gradient-custom {
-  /* fallback for old browsers */
-  background: #cd9cf2;
+<style>
 
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
+body{
 
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
-
-/*html,
-body {
-    height: 100%
-}*/
-
-/*body {
-    display: grid;
-    place-items: center;
-    font-family: 'Manrope', sans-serif;
-    background: #000
+.panel-order .row {
+    border-bottom: 1px solid #ccc;
 }
-*/
-.cross {
-    padding: 10px;
-    color: #d6312d;
-    cursor: pointer;
-    font-size: 23px
+.panel-order .row:last-child {
+    border: 0px;
 }
-
-.cross i {
-    margin-top: -5px;
-    cursor: pointer
+.panel-order .row .col-md-1  {
+    text-align: center;
+    padding-top: 15px;
 }
-
-.comment-box {
-    padding: 5px
+.panel-order .row .col-md-1 img {
+    width: 50px;
+    max-height: 50px;
 }
-
-.comment-area textarea {
-    resize: none;
-    border: 1px solid #ebab34
+.panel-order .row .row {
+    border-bottom: 0;
 }
-
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #ffffff;
-    outline: 0;
-    box-shadow: 0 0 0 1px rgb(255, 0, 0) !important
+.panel-order .row .col-md-11 {
+    border-left: 1px solid #ccc;
 }
-
-.send {
-    color: #fff;
-    background-color: #ebab34;
-    border-color: #ebab34
+.panel-order .row .row .col-md-12 {
+    padding-top: 7px;
+    padding-bottom: 7px; 
 }
-
-.send:hover {
-    color: #fff;
-    background-color: #ebab34;
-    border-color: #ebab34
+.panel-order .row .row .col-md-12:last-child {
+    font-size: 11px; 
+    color: #555;  
+    background: #efefef;
 }
-
+.panel-order .btn-group {
+    margin: 0px;
+    padding: 0px;
+}
+.panel-order .panel-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.panel-order .panel-deading {
+    margin-bottom: 0;
+} 
 .rating {
     display: inline-flex;
     margin-top: -10px;
     flex-direction: row-reverse
-}
+}  
 
 .rating>input {
     display: none
@@ -247,5 +150,11 @@ body {
 
 .rating:hover>input:checked~label:before {
     opacity: 0.4
-}
+} 
+ img {
+    
+    height: 50px;
+    width: 80px;
+}                
 </style>
+

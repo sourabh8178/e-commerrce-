@@ -1,8 +1,8 @@
 <% Category.all.each do |category| %>
-   <h1 style="text-transform: uppercase; text-align: center; width: 600px; font-style:bold; background-color:  #aecb1a; color: white; margin-left:22%"><%= category.name %></h1> 
-   <hr style="background-color: indianred; height: 20px;">
+   <h1 style=" text-align: center;  font-style:bold;   "><%= category.name %></h1> 
+   <hr style="background-color: indianred; height: 2px;">
     <% category.subcategory.each do |sub_category| %>
-       <h4 style="text-transform: capitalize; font-style:bold;margin-top: 30px; height: 30px; width: 120px; background-color: #FFFF99; color: indianred; text-align: center; margin-left:60px"><%= sub_category.name %></h4>
+       <h4 style="text-transform: capitalize; font-style:bold;margin-top: 30px; height: 30px; width: 120px;   text-align: center; margin-left:60px"><%= sub_category.name %></h4>
           <div class="container">
               <div class="row">
                  <% sub_category.products.each do |pro|%>
@@ -54,7 +54,7 @@
                 <% end %>  
               </div>
             </div>
-      <hr style="background-color: indianred; height: 20px;">
+      <hr style="background-color: indianred; height: 2px;">
     <% end %>
 <% end %>
 
@@ -96,6 +96,11 @@
 }
 .topnav a:hover {
     border-bottom: 3px solid red;
+}
+ img {
+    
+    height: 50px;
+    width: 80px;
 }
 </style>
 

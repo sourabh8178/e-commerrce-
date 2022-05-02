@@ -6,6 +6,7 @@ class Product < ApplicationRecord
 	belongs_to :subcategory
 	validates :name, presence: true
 	mount_uploader :image, ImageUploader
+	has_many :reviews
 
 	def calculate_discount(product)
 		discount_price = (product.price.to_f*product.discount.to_f)/100.0
