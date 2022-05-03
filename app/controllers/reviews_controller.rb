@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
     review.rating = params[:rating ]
     review.comment = params[:review][:comment]
     review.user_id = current_user.id
-    review.order_id = current_user.order_booking_ids
+    # review.order_id = current_user.order_booking_ids
     # review.product_id = params[:product_ids]
     review.save
     # @review = Review.new(review_params)
