@@ -10,6 +10,7 @@ class CartsController < ApplicationController
   end
 
   def checkout
+    byebug
     if params["order"]["cash_on_delivery"].present?
       OrderStatus.create(order_id: params[:order_id], refund: "NotApplicabel")
       @cart_items = Product.where(id: current_user.cart.cart_items.map(&:item_id))
@@ -50,9 +51,10 @@ class CartsController < ApplicationController
           allowed_countries: ['IN'],
         },
         # These placeholder URLs will be replaced in a following step.
-        success_url: "https://flip-cart-lite.herokuapp.com//carts/success?session_id={CHECKOUT_SESSION_ID}&product_ids=#{current_user.cart.cart_items.map(&:item_id)}&address_id=#{params["order"]["address_id"]}",
+        success_url: "http://localhost:3000//carts/success?session_id={CHECKOUT_SESSION_ID}&product_ids=#{current_user.cart.cart_items.map(&:item_id)}&address_id=#{params["order"]["address_id"]}",
         cancel_url: 'https://flip-cart-lite.herokuapp.com//carts/cancel',
       })
+      # http://localhost:3000
     end  
   end
 
@@ -83,12 +85,10 @@ class CartsController < ApplicationController
   end
 
   def cancel
-    
-    
     redirect_to "/cancel"
   end
   
-   def cancel_page
+  def cancel_page
     
   end
 
