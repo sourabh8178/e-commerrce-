@@ -10,7 +10,6 @@ class CartsController < ApplicationController
   end
 
   def checkout
-    byebug
     if params["order"]["cash_on_delivery"].present?
       OrderStatus.create(order_id: params[:order_id], refund: "NotApplicabel")
       @cart_items = Product.where(id: current_user.cart.cart_items.map(&:item_id))
@@ -31,7 +30,7 @@ class CartsController < ApplicationController
       OrderStatus.create(order_id: params[:order_id], status: "created")
       current_user.cart.clear
       redirect_to "/success"
-    else  
+    else 
       Stripe.api_key = "sk_test_51KWwrwSJkerzRPBUxkXVy9PTD9clPnX2KrEycutGuZxdFULjpNu1W6Lev5jSpYUmCc99SumqCo3JKOUD2mYr2nvD00UY2qQ9hk"
       @session = Stripe::Checkout::Session.create({
         line_items: [{
